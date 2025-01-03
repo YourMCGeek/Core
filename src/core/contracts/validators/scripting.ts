@@ -16,7 +16,7 @@ class ConditionArgumentValidator {
 
   @IsOptional()
   @IsString({ each: true })
-  text: string[] | string
+  value: string[] | string
 
   @IsOptional()
   @IsNumber()
@@ -25,10 +25,6 @@ class ConditionArgumentValidator {
   @IsOptional()
   @IsBoolean()
   inherit: boolean
-
-  @IsOptional()
-  @IsString()
-  role: string
 
   @IsOptional()
   @IsString()
@@ -55,12 +51,29 @@ export class ConditionValidator {
 }
 
 export class MutatorValidator {
-  @IsDefined()
+  @IsOptional()
   @IsString()
-  id: string
+  content: string
 
-  @IsDefined()
-  args: unknown
+  @IsOptional()
+  @IsString()
+  channel: string
+
+  @IsOptional()
+  @IsString()
+  role: string
+
+  @IsOptional()
+  @IsString()
+  guild: string
+
+  @IsOptional()
+  @IsString()
+  member: string
+
+  @IsOptional()
+  @IsString()
+  user: string
 }
 
 class ActionArgumentValidator extends MessageValidator {
@@ -71,16 +84,8 @@ class ActionArgumentValidator extends MessageValidator {
   actions: ActionValidator[]
 
   @IsOptional()
-  @IsString()
-  channel: string
-
-  @IsOptional()
   @IsString({ each: true })
-  role: string | string[]
-
-  @IsOptional()
-  @IsString()
-  emoji: string
+  value: string | string[]
 
   @IsOptional()
   @IsInt()
@@ -104,17 +109,9 @@ class ActionArgumentValidator extends MessageValidator {
   chance: number
 
   @IsOptional()
-  @IsString()
-  name: string
-
-  @IsOptional()
   @IsInt()
   @IsPositive()
   duration: number
-
-  @IsOptional()
-  @IsString()
-  form: string
 }
 
 export class ActionValidator {
@@ -140,10 +137,9 @@ export class ActionValidator {
   conditions: ConditionValidator[]
 
   @IsOptional()
-  @IsArray()
-  @ValidateNested({ each: true })
+  @ValidateNested()
   @Type(() => MutatorValidator)
-  mutators: MutatorValidator[]
+  mutators: MutatorValidator
 }
 
 export class TriggerActionValidator extends ActionValidator {

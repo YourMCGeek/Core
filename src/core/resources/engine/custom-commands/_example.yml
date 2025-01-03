@@ -23,17 +23,15 @@ actions:
   - actions:
     - id: addRole
       args:
-        role: "%option_role_id%"
+        value: "%option_role_id%"
     - id: reply
       args:
         delay: 3
         content: "Role %option_role_mention% added to %user_mention%"
     mutators:
-      - id: member
-        args:
-          member: "%option_user_id%"
+      member: "%option_user_id%"
 
 conditions:
   - id: hasRole
     args:
-      role: "118488015502"
+      value: "118488015502"
